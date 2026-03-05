@@ -1,23 +1,17 @@
 # 🤖 Uno Q Crystal Core: Total UART Bridge
 **Target Hardware**: ToAuto Pyramid 300 (SKR Mini E3 V3.0 + Arduino Uno Q)
 
-This repository contains the production-ready configuration and automated installer for bypassing the Qualcomm USB watchdog on the Arduino Uno Q, establishing a **Total UART** serial link between the host and dual MCUs.
+This repository establishes a **Total UART** serial link for Klipper, bypassing the Qualcomm Snapdragon's USB watchdog by utilizing internal high-speed serial nodes.
 
-## ⚡ Key Features
-- **Zero-USB Architecture**: Both MCUs communicate via internal Snapdragon serial nodes.
-- **Dual-MCU Sync**: SKR Mini E3 (Motion) and Uno Q (Sensors) bridged via high-speed UART.
-- **Resonance Optimized**: Integrated ADXL345 support via the Uno Q SPI1 bridge.
+## ⚡ Architecture
+- **MCU 'mcu' (Motion)**: SKR Mini E3 V3.0 via `/dev/ttyHS1` (High-Speed UART).
+- **MCU 'unoq' (Sensors)**: Uno Q Bridge via `/dev/ttyMSM0` (Internal MSM UART).
+- **Resonance Testing**: Integrated ADXL345 support via the Uno Q SPI1 bridge.
 
-## 🛠 Installation
-```bash
-./install.sh
-```
-
-## 🔌 Hardware Mapping
-| MCU | Path | Interface |
-| :--- | :--- | :--- |
-| **SKR Mini E3** | `/dev/ttyHS1` | EXP1 UART (PA9/PA10) |
-| **Uno Q Bridge** | `/dev/ttyMSM0` | Internal UART1 (PA9/PA10) |
+## 🛠 Deployment
+1. Mask system services to liberate serial ports:
+   `sudo systemctl mask serial-getty@ttyMSM0.service arduino-router-serial.service`
+2. Run the provided `install.sh` to flash MCUs via the internal SWD backdoor.
 
 ---
-*Created by **pupvino** - It's not done until it's production ready.*
+*Maintained by **pupvino** - It's not done until it's production ready.*
