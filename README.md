@@ -15,13 +15,3 @@ This repository establishes a **Total UART** serial link for Klipper, bypassing 
 
 ---
 *Maintained by **pupvino** - It's not done until it's production ready.*
-
-## 🧹 MAINTENANCE & HOUSEKEEPING
-To ensure the serial ports remain liberated after system updates, run the included post-install script:
-```bash
-./scripts/post-install.sh
-```
-This script masks the **serial-getty** and **arduino-router** services that otherwise hijack the `/dev/ttyHS1` and `/dev/ttyMSM0` nodes.
-
-## 🎭 THE NEURAL SHELL GAME
-Redirected /dev/ttyHS1 to /dev/null to satisfy system services while reserving CAH0 for Klipper hardware access.
